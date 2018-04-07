@@ -12,7 +12,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.exe.paradox.R;
 import com.gjiazhe.panoramaimageview.GyroscopeObserver;
 import com.gjiazhe.panoramaimageview.PanoramaImageView;
@@ -21,6 +20,8 @@ import com.squareup.picasso.Picasso;
 public class ContactActivity extends AppCompatActivity {
     private GyroscopeObserver gyroscopeObserver;
     private TextView writeToUs, numAnkit, numShasha;
+    private Toolbar toolbar;
+    private PanoramaImageView panoramaImageView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,16 +32,23 @@ public class ContactActivity extends AppCompatActivity {
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
+        toolbar = findViewById(R.id.toolbar_about);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         gyroscopeObserver = new GyroscopeObserver();
         gyroscopeObserver.setMaxRotateRadian(Math.PI / 3);
 
-        PanoramaImageView panoramaImageView = findViewById(R.id.panorama_image_view);
+        panoramaImageView = findViewById(R.id.panorama_image_view);
+
         writeToUs = findViewById(R.id.mail_to_us);
         numAnkit = findViewById(R.id.num_ankit);
         numShasha = findViewById(R.id.num_shasha);
         panoramaImageView.setGyroscopeObserver(gyroscopeObserver);
-
-        Picasso.get().load("https://picsum.photos/700/600/?random").placeholder(R.drawable.road).into(panoramaImageView);
 
         writeToUs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +84,7 @@ public class ContactActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         gyroscopeObserver.register(this);
+        Picasso.get().load("https://picsum.photos/700/600/?random").placeholder(R.drawable.road).into(panoramaImageView);
     }
 
     @Override
