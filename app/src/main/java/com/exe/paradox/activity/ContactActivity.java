@@ -12,9 +12,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.exe.paradox.R;
 import com.gjiazhe.panoramaimageview.GyroscopeObserver;
 import com.gjiazhe.panoramaimageview.PanoramaImageView;
+import com.squareup.picasso.Picasso;
 
 public class ContactActivity extends AppCompatActivity {
     private GyroscopeObserver gyroscopeObserver;
@@ -37,6 +39,9 @@ public class ContactActivity extends AppCompatActivity {
         numAnkit = findViewById(R.id.num_ankit);
         numShasha = findViewById(R.id.num_shasha);
         panoramaImageView.setGyroscopeObserver(gyroscopeObserver);
+
+        Picasso.get().load("https://picsum.photos/700/600/?random").placeholder(R.drawable.road).into(panoramaImageView);
+
         writeToUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
